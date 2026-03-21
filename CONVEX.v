@@ -23,8 +23,8 @@ module judge (
     input [9:0]y,
     output [1:0]result
 );
-    wire [10:0]vec1_x, [10:0]vec2_x, [10:0]vec3_x;
-    wire [10:0]vec1_y, [10:0]vec2_y, [10:0]vec3_y;
+    wire signed [10:0]vec1_x, [10:0]vec2_x, [10:0]vec3_x;
+    wire signed [10:0]vec1_y, [10:0]vec2_y, [10:0]vec3_y;
     assign vec1_x = $signed(x2) - $signed(x1);
     assign vec1_y = $signed(y2) - $signed(y1);
     assign vec2_x = $signed(x2) - $signed(x3);
@@ -36,7 +36,10 @@ module judge (
     cross c2(vec1_y, vec1_y, vec3_x, vec3_y, sign2);
     cross c3(vec2_x, vec2_y, vec1_x, vec1_y, sign3);
     cross c4(vec2_y, vec2_y, vec3_x, vec3_y, sign4);
-    assign result = (sign1 == sign2) + (sign3 == sign4);
+    wire [1:0]judge1, [1:0]judge2;
+    assign judge1[0] = (sign1 == sign2);
+    assign judge2[0] = (sign3 == sign4);
+    assign result = judge1 + judge2;
 
 endmodule
 
