@@ -1,3 +1,46 @@
+module cross (
+    input [10:0]x1, 
+    input [10:0]y1, 
+    input [10:0]x2, 
+    input [10:0]y2,
+    output sign
+)
+    wire [21:0]lhs; 
+    wire [21:0]rhs; 
+    assign lhs = x1 * y2;
+    assign rhs = x2 * y1;
+    assign sign = (lhs >= rhs) ? 1 : 0; 
+endmodule
+
+module judge (
+    input [9:0]x1, 
+    input [9:0]y1,
+    input [9:0]x2, 
+    input [9:0]y2,
+    input [9:0]x3, 
+    input [9:0]y3,
+    input [9:0]x, 
+    input [9:0]y,
+    output [1:0]result
+);
+    wire [10:0]vec1_x, [10:0]vec2_x, [10:0]vec3_x;
+    wire [10:0]vec1_y, [10:0]vec2_y, [10:0]vec3_y;
+    assign vec1_x = $signed(x2) - $signed(x1);
+    assign vec1_y = $signed(y2) - $signed(y1);
+    assign vec2_x = $signed(x2) - $signed(x3);
+    assign vec2_y = $signed(y2) - $signed(y3);
+    assign vec3_x = $signed(x2) - $signed(x);
+    assign vec3_y = $signed(y2) - $signed(y);
+    wire sign1, sign2, sign3, sign4;
+    cross c1(vec1_x, vec1_y, vec2_x, vec2_y, sign1);
+    cross c2(vec1_y, vec1_y, vec3_x, vec3_y, sign2);
+    cross c3(vec2_x, vec2_y, vec1_x, vec1_y, sign3);
+    cross c4(vec2_y, vec2_y, vec3_x, vec3_y, sign4);
+    assign result = (sign1 == sign2) + (sign3 == sign4);
+
+endmodule
+
+
 module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     input CLK;
     input RST;
