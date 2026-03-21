@@ -7,3 +7,4 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     output reg [9:0] DROP_Y;
     output reg DROP_V;
 endmodule
+
