@@ -53,6 +53,8 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     output reg [9:0] DROP_Y;
     output reg DROP_V;
 
+    reg [1:0] state;
+
     reg [2:0] input_count;
     reg stop_READ_PT;
 
@@ -66,6 +68,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
 
     always @(posedge CLK or posedge RST) begin
         if (RST) begin
+            state <= 00;
             READ_PT <= 0;
             PT_XY <= 5'b0;
             DROP_X <= 9'b0;
@@ -76,42 +79,52 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
             Xl <= 5'b0;
             Yh <= 5'b0;
             Yl <= 5'b0;
-            stop_READ_PT = 0;
         end
 
         else begin
             
-            if(READ_PT and stop_READ_PT == 0) begin //havent deal with continous READ_PT signal
-            input_count <= input_count + 1;
-            stop_READ_PT == 1;
-            end
-
-            case(input_count)
-                001: begin
-                    Xh <= PT_XY;
-                    input_count <= input_count + 1;
+            case(state)
+            00:  
+                if(READ_PT) begin
+                input_count <= input_count + 1;
+                READ_PT = 0;
                 end
 
-                010: begin
-                    Xl <= PT_XY;
-                    input_count <= input_count + 1;
-                end
+                case(input_count)
+                    001: begin
+                        Xh <= PT_XY;
+                        input_count <= input_count + 1;
+                    end
 
-                011: begin
-                    Yh <= PT_XY;
-                    input_count <= input_count + 1;
-                    stop_READ_PT == 0;
-                end
+                    010: begin
+                        Xl <= PT_XY;
+                        input_count <= input_count + 1;
+                    end
 
-                100: begin
-                    Yl <= PT_XY;
-                    newX <= {Xh, Xl};
-                    newY <= {Yh, Yl};
+                    011: begin
+                        Yh <= PT_XY;
+                        input_count <= input_count + 1;
+                        stop_READ_PT == 0;
+                    end
 
-                end
+                    100: begin
+                        Yl <= PT_XY;
+                        newX <= {Xh, Xl};
+                        newY <= {Yh, Yl};
+                        input_count <= 0;                        
+                    end
 
-                default: PT_XY;//
+                    default: PT_XY;//
+                endcase
+
+            01:
+
             endcase
+
+
+
+            
+            
 
         end
     end
