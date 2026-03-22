@@ -140,18 +140,20 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     3'b011: begin
                         Yh <= PT_XY;
                         input_count <= input_count + 1;
-
-                
                     end
 
                     3'b100: begin
                         Yl <= PT_XY;
+                        input_count <= input_count + 1;                   
+                    end
+
+                    3'b101: begin
                         newX <= {Xh, Xl};
                         newY <= {Yh, Yl};
                         input_count <= 0;
                         i <= 0;
                         flag <= 0;
-                        state <= 01; //Finish input, starts judging                      
+                        state <= 01; //Finish input, starts judging
                     end
 
                     default: begin end
