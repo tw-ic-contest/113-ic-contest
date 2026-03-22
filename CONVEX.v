@@ -119,7 +119,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
             
             case(state)
             
-            00: begin //INPUT STATE: get newX and newY
+            2'b00: begin //INPUT STATE: get newX and newY
                 DROP_V <= 0;
                 if(READ_PT == 1) begin
                 input_count <= input_count + 1;
@@ -162,7 +162,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
 
 
 
-            01 : begin// JUDGING STATE: judge every vertice's status STATE (drop, tangent, dont care)
+            2'b01 : begin// JUDGING STATE: judge every vertice's status STATE (drop, tangent, dont care)
                 DROP_V <= 0;
                 if (points_size == 0) begin
                     insert <= points_size;
@@ -251,16 +251,16 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
 
 
 
-            10: begin//SORTING STATE: Sorting the new points 
+            2'b10: begin//SORTING STATE: Sorting the new points 
 
                 case (points_judged[i])
-                    00: begin
+                    2'b00: begin
                         // drop
                         DROP_V <= 1;
                         DROP_X <= points_sorted_x[i];
                         DROP_Y <= points_sorted_y[i];                                
                     end
-                    01: begin
+                    2'b01: begin
                         // tangent
                         DROP_V <= 0;
                         if (i == 0) begin 
@@ -289,7 +289,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     end
 
                         
-                    10: begin
+                    2'b10: begin
                         // dont care
                         DROP_V <= 0;
                         points_swap_x[swap_idx] <= points_sorted_x[i];
@@ -312,7 +312,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
 
                 
 
-            11: begin  //SWAPING STAGE: swap the sorted 
+            2'b11: begin  //SWAPING STAGE: swap the sorted 
                 DROP_V <= 0;
                 if (flag == 0) begin
                     points_swap_x[insert] <= newX;
