@@ -111,7 +111,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
             
             case(state)
             
-            00: //INPUT STATE: get newX and newY
+            00: begin //INPUT STATE: get newX and newY
                 DROP_V <= 0;
                 if(READ_PT == 1) begin
                 input_count <= input_count + 1;
@@ -148,12 +148,12 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     default: begin end
 
                 endcase
+            end 
 
 
 
 
-
-            01: // JUDGING STATE: judge every vertice's status STATE (drop, tangent, dont care)
+            01 : begin// JUDGING STATE: judge every vertice's status STATE (drop, tangent, dont care)
                 DROP_V <= 0;
                 if (points_size == 0) begin
                     insert <= points_size;
@@ -238,20 +238,20 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                         end
                     end
                 end
+            end
 
 
 
-
-            10: //SORTING STATE: Sorting the new points 
+            10: begin//SORTING STATE: Sorting the new points 
 
                 case (points_judged[i])
-                    00:
+                    00: begin
                         // drop
                         DROP_V <= 1;
                         DROP_X <= points_sorted_x[i];
                         DROP_Y <= points_sorted_y[i];                                
-                        
-                    01:
+                    end
+                    01: begin
                         // tangent
                         DROP_V <= 0;
                         if (i == 0) begin 
@@ -277,15 +277,16 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                                 swap_idx <= swap_idx + 1;
                             end
                         end
-
+                    end
 
                         
-                    10:
+                    10: begin
                         // dont care
                         DROP_V <= 0;
                         points_swap_x[swap_idx] <= points_sorted_x[i];
                         points_swap_y[swap_idx] <= points_sorted_y[i];
                         swap_idx <= swap_idx + 1;
+                    end
                 endcase
 
 
@@ -298,11 +299,11 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     i <= i + 1;
                 
                 end
-
+            end
 
                 
 
-            11:  //SWAPING STAGE: swap the sorted 
+            11: begin  //SWAPING STAGE: swap the sorted 
                 DROP_V <= 0;
                 if (flag == 0) begin
                     points_swap_x[insert] <= newX;
@@ -315,7 +316,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     state <= 00;
                     READ_PT <= 1;
                 end
-
+            end
                 
 
             endcase
