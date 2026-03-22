@@ -113,7 +113,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
             
             00: //INPUT STATE: get newX and newY
                 DROP_V <= 0;
-                if(READ_PT) begin
+                if(READ_PT == 1) begin
                 input_count <= input_count + 1;
                 READ_PT <= 0;
                 end
