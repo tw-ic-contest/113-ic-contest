@@ -128,23 +128,23 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                 end
 
                 case(input_count)
-                    001: begin
+                    3'b001: begin
                         Xh <= PT_XY;
                         input_count <= input_count + 1;
                     end
 
-                    010: begin
+                    3'b010: begin
                         Xl <= PT_XY;
                         input_count <= input_count + 1;
                     end
 
-                    011: begin
+                    3'b011: begin
                         Yh <= PT_XY;
                         input_count <= input_count + 1;
                         stop_READ_PT <= 0;
                     end
 
-                    100: begin
+                    3'b100: begin
                         Yl <= PT_XY;
                         newX <= {Xh, Xl};
                         newY <= {Yh, Yl};
