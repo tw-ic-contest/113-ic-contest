@@ -91,10 +91,10 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     always @(posedge CLK or posedge RST) begin
 
 
-        if (!RST) begin
-            $display("[DBG] state=%0d READ_PT=%0d input_count=%0d flag=%0d points_size=%0d swap_idx=%0d insert=%0d PT_XY=%0d newX=%0d newY=%0d",
-                    state, READ_PT, input_count, flag, points_size, swap_idx, insert, PT_XY, newX, newY);
-        end
+        // if (!RST) begin
+        //     $display("[DBG] state=%0d READ_PT=%0d input_count=%0d flag=%0d points_size=%0d swap_idx=%0d insert=%0d PT_XY=%0d newX=%0d newY=%0d",
+        //             state, READ_PT, input_count, flag, points_size, swap_idx, insert, PT_XY, newX, newY);
+        // end
 
         if (RST) begin
             state <= 00;
