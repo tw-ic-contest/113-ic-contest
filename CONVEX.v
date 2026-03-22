@@ -1,4 +1,4 @@
-module cross (
+module _cross (
     input [10:0]x1, 
     input [10:0]y1, 
     input [10:0]x2, 
@@ -32,10 +32,10 @@ module judge (
     assign vec3_x = $signed(x2) - $signed(x);
     assign vec3_y = $signed(y2) - $signed(y);
     wire sign1, sign2, sign3, sign4;
-    cross c1(vec1_x, vec1_y, vec2_x, vec2_y, sign1);
-    cross c2(vec1_y, vec1_y, vec3_x, vec3_y, sign2);
-    cross c3(vec2_x, vec2_y, vec1_x, vec1_y, sign3);
-    cross c4(vec2_y, vec2_y, vec3_x, vec3_y, sign4);
+    _cross c1(vec1_x, vec1_y, vec2_x, vec2_y, sign1);
+    _cross c2(vec1_y, vec1_y, vec3_x, vec3_y, sign2);
+    _cross c3(vec2_x, vec2_y, vec1_x, vec1_y, sign3);
+    _cross c4(vec2_y, vec2_y, vec3_x, vec3_y, sign4);
     wire [1:0]judge1, [1:0]judge2;
     assign judge1[0] = (sign1 == sign2);
     assign judge2[0] = (sign3 == sign4);
