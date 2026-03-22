@@ -23,8 +23,8 @@ module judge (
     input [9:0]y,
     output [1:0]result
 );
-    wire signed [10:0]vec1_x, [10:0]vec2_x, [10:0]vec3_x;
-    wire signed [10:0]vec1_y, [10:0]vec2_y, [10:0]vec3_y;
+    wire signed [10:0]vec1_x; wire signed [10:0]vec2_x; wire signed [10:0]vec3_x;
+    wire signed [10:0]vec1_y; wire signed [10:0]vec2_y; wire signed [10:0]vec3_y;
     assign vec1_x = $signed(x2) - $signed(x1);
     assign vec1_y = $signed(y2) - $signed(y1);
     assign vec2_x = $signed(x2) - $signed(x3);
