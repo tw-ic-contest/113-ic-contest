@@ -25,12 +25,12 @@ module judge (
 );
     wire signed [10:0]vec1_x; wire signed [10:0]vec2_x; wire signed [10:0]vec3_x;
     wire signed [10:0]vec1_y; wire signed [10:0]vec2_y; wire signed [10:0]vec3_y;
-    assign vec1_x = $signed(x2) - $signed(x1);
-    assign vec1_y = $signed(y2) - $signed(y1);
-    assign vec2_x = $signed(x2) - $signed(x3);
-    assign vec2_y = $signed(y2) - $signed(y3);
-    assign vec3_x = $signed(x2) - $signed(x);
-    assign vec3_y = $signed(y2) - $signed(y);
+    assign vec1_x = $signed({1'b0, x2}) - $signed({1'b0, x1});
+    assign vec1_y = $signed({1'b0, y2}) - $signed({1'b0, y1});
+    assign vec2_x = $signed({1'b0, x2}) - $signed({1'b0, x3});
+    assign vec2_y = $signed({1'b0, y2}) - $signed({1'b0, y3});
+    assign vec3_x = $signed({1'b0, x2}) - $signed({1'b0, x});
+    assign vec3_y = $signed({1'b0, y2}) - $signed({1'b0, y});
     wire sign1, sign2, sign3, sign4;
     _cross c1(vec1_x, vec1_y, vec2_x, vec2_y, sign1);
     _cross c2(vec1_x, vec1_y, vec3_x, vec3_y, sign2);
