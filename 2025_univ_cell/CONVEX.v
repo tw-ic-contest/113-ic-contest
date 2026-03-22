@@ -323,7 +323,8 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     flag <= 1;
                 end else begin
                     points_size <= swap_idx;
-                    for (integer i = 0; i < 13; i = i + 1) begin
+                    integer i;
+                    for (i = 0; i < 13; i = i + 1) begin
                         points_sorted_x[i] <= points_swap_x[i];
                         points_sorted_y[i] <= points_swap_y[i];
                     end
