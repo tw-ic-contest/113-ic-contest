@@ -267,7 +267,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                         // tangent
                         DROP_V <= 0;
                         if (i == 0) begin 
-                            if (points_judged[points_size - 1] == 00) begin
+                            if (points_judged[points_size - 1] != 2'b10) begin
                                 insert <= swap_idx;
                                 points_swap_x[swap_idx + 1] <= points_sorted_x[i];
                                 points_swap_y[swap_idx + 1] <= points_sorted_y[i];
@@ -278,7 +278,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                                 swap_idx <= swap_idx + 1;
                             end
                         end else begin
-                            if (points_judged[i - 1] == 00) begin
+                            if (points_judged[i - 1] != 2'b10) begin
                                 insert <= swap_idx;
                                 points_swap_x[swap_idx + 1] <= points_sorted_x[i];
                                 points_swap_y[swap_idx + 1] <= points_sorted_y[i];
