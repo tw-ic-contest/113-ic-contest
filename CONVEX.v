@@ -61,7 +61,6 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     reg [1:0] state;
 
     reg [2:0] input_count;
-    reg stop_READ_PT;
 
     reg [4:0] Xh;
     reg [4:0] Xl;
@@ -96,7 +95,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
             $display("[DBG] state=%0d READ_PT=%0d input_count=%0d flag=%0d points_size=%0d swap_idx=%0d insert=%0d PT_XY=%0d newX=%0d newY=%0d",
                     state, READ_PT, input_count, flag, points_size, swap_idx, insert, PT_XY, newX, newY);
         end
-        
+
         if (RST) begin
             state <= 00;
             READ_PT <= 1;
@@ -141,7 +140,8 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     011: begin
                         Yh <= PT_XY;
                         input_count <= input_count + 1;
-                        stop_READ_PT <= 0;
+
+                
                     end
 
                     100: begin
