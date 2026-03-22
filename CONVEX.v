@@ -36,7 +36,8 @@ module judge (
     _cross c2(vec1_x, vec1_y, vec3_x, vec3_y, sign2);
     _cross c3(vec2_x, vec2_y, vec1_x, vec1_y, sign3);
     _cross c4(vec2_x, vec2_y, vec3_x, vec3_y, sign4);
-    wire [1:0]judge1, [1:0]judge2;
+    wire [1:0]judge1;
+    wire [1:0]judge2;
 
     assign judge1[1] = 0;
     assign judge2[1] = 0;
@@ -81,7 +82,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
     reg [1:0] points_judged [12:0];
     reg [3:0] insert;
     
-    reg [9:0]x1, [9:0]y1, [9:0]x2, [9:0]y2, [9:0]x3, [9:0]y3, [9:0]x, [9:0]y, [1:0]result;
+    reg [9:0]x1; reg [9:0]y1; reg[9:0]x2; reg [9:0]y2; reg [9:0]x3; reg [9:0]y3; reg [9:0]x; reg [9:0]y; reg [1:0]result;
     reg flag;
     
     judge _judge(x1, y1, x2, y2, x3, y3, x, y, result);
