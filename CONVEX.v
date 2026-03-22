@@ -168,6 +168,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                 DROP_V <= 0;
                 if (points_size == 0) begin
                     insert <= points_size;
+                    swap_idx <= swap_idx + 1;
                     state <= 11;
                     flag <= 0;
 
@@ -319,7 +320,6 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                 if (flag == 0) begin
                     points_swap_x[insert] <= newX;
                     points_swap_y[insert] <= newY;
-                    swap_idx <= swap_idx + 1;
                     flag <= 1;
                 end else begin
                     points_size <= swap_idx;
