@@ -254,7 +254,7 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
 
 
             2'b10: begin//SORTING STATE: Sorting the new points 
-                // $display("[SORTING] points_index=%0d judge=%0d", i, points_judged[i]);
+                $display("[SORTING] points_index=%0d x=%0d y=%0d judge=%0d", i, points_sorted_x[i], points_sorted_y[i], points_judged[i]);
 
                 case (points_judged[i])
                     2'b00: begin
