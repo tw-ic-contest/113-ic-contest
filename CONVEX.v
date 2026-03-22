@@ -326,6 +326,9 @@ module CONVEX (CLK, RST, PT_XY, READ_PT, DROP_X, DROP_Y, DROP_V);
                     points_sorted_y <= points_swap_y;
                     state <= 00;
                     READ_PT <= 1;
+                    if (!RST && state == 2'd3 && flag == 1'b1) begin
+                        $display("[COMMIT] points_size=%0d swap_idx=%0d insert=%0d", points_size, swap_idx, insert);
+                    end
                 end
             end
                 
